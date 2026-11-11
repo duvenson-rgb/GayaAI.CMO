@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- engine_news.html — "thevarunmayya" news / B-roll explainer style. Transparent overlay frames over the picture track from news_compose.py.
+Files next to it: fonts/Montserrat-Variable.ttf, captions.js (window.CUES from srt_tools.py tojs), beats.js (window.BEATS = the beats array
+from BEATS.json, so captions know the layout), events.js (window.EVENTS, optional):
+  big      {t0,t1,text,color:"white"|"black",y}      heavy single word / short phrase (seam of a split, or on white)
+  tag      {t0,t1,text}                               red "BREAKING" style tag with pulsing dot
+  headline {t0,t1,source,date,text}                   news card: OUR paraphrase of the headline (never copied article text), source name + date
+  credit   {t0,t1,text}                               tiny credit line bottom-left (CC BY attribution when required on screen)
+Caption pill position: at the seam (y=960) on split beats, y=1400 elsewhere. -->
+<html><head><meta charset="utf-8"><style>
+@font-face{font-family:M;src:url(fonts/Montserrat-Variable.ttf);font-weight:100 900}
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:M}
+.hide{display:none}
+#cap{position:absolute;left:0;right:0;text-align:center}
+#cap span{display:inline-block;background:#0b0b0c;color:#fff;font-weight:800;font-size:46px;letter-spacing:-.5px;padding:10px 24px 12px;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.big{position:absolute;left:0;right:0;text-align:center;font-weight:900;font-size:150px;letter-spacing:-3px;line-height:.9;white-space:nowrap}
+.big.white{color:#fff;text-shadow:0 6px 24px rgba(0,0,0,.45)}.big.black{color:#0b0b0c}
+.tag{position:absolute;left:60px;top:300px;background:#e8202a;color:#fff;font-weight:900;font-size:40px;letter-spacing:2px;padding:12px 26px 12px 64px;border-radius:12px;box-shadow:0 8px 24px rgba(232,32,42,.45)}
+.tag i{position:absolute;left:26px;top:50%;width:20px;height:20px;margin-top:-10px;border-radius:50%;background:#fff}
+.hl{position:absolute;left:70px;width:940px;background:#fff;border-radius:26px;padding:34px 40px;box-sizing:border-box;box-shadow:0 24px 60px rgba(0,0,0,.45);color:#111}
+.hl .src{display:flex;align-items:center;gap:16px;font-weight:800;font-size:30px}.hl .src b{width:52px;height:52px;border-radius:12px;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px}
+.hl .src span{font-weight:500;color:#777;font-size:26px}.hl .t{font-weight:800;font-size:50px;line-height:1.12;margin-top:22px;letter-spacing:-.5px}
+.credit{position:absolute;left:36px;bottom:300px;font-size:20px;color:rgba(255,255,255,.75);text-shadow:0 1px 4px rgba(0,0,0,.8)}
+</style></head><body><div id="cap"><span></span></div><div id="ev"></div>
+<script src="captions.js" onerror="0"></script><script src="beats.js" onerror="0"></script><script src="events.js" onerror="0"></script>
+<script>
+const CUES=window.CUES||[], BEATS=window.BEATS||[], EVENTS=window.EVENTS||[];
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), eob=x=>{x=cl(x);const c=1.70158;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)}, eo=x=>1-Math.pow(1-cl(x),3);
+const layoutAt=t=>(BEATS.find(b=>t>=b.t0&&t<b.t1)||{}).layout||'host';
+const ev=document.getElementById('ev');
+EVENTS.forEach(e=>{const d=document.createElement('div');d.className='hide';e.el=d;
+  if(e.type==='big')d.innerHTML=`<div class="big ${e.color||'white'}" style="top:${e.y||890}px">${e.text}</div>`;
+  if(e.type==='tag')d.innerHTML=`<div class="tag"><i></i>${e.text}</div>`;
+  if(e.type==='headline')d.innerHTML=`<div class="hl" style="top:${e.y||420}px"><div class="src"><b>${(e.source||'?')[0]}</b>${e.source}<span>· ${e.date||''}</span></div><div class="t">${e.text}</div></div>`;
+  if(e.type==='credit')d.innerHTML=`<div class="credit">${e.text}</div>`;
+  ev.appendChild(d);});
+let lastCue=-1;
+function render(t){
+  const cap=document.getElementById('cap'),sp=cap.firstElementChild;
+  let ci=CUES.findIndex(c=>t>=c[0]&&t<c[1]);
+  const bigOn=EVENTS.some(e=>e.type==='big'&&t>=e.t0&&t<e.t1);
+  if(ci<0||bigOn){cap.style.opacity=0;} else {
+    if(ci!==lastCue){sp.textContent=CUES[ci][2];lastCue=ci;}
+    const L=layoutAt(t); const y=L==='split'?960:1400; cap.style.top=(y-sp.offsetHeight/2)+'px';
+    const dt=t-CUES[ci][0]; cap.style.opacity=cl(dt/.05); cap.style.transform=`scale(${.9+.1*eob(dt/.14)})`; }
+  EVENTS.forEach(e=>{const on=t>=e.t0&&t<e.t1;e.el.className=on?'':'hide';if(!on)return;const dt=t-e.t0,el=e.el.firstElementChild;
+    if(e.type==='big'){el.style.transform=`scale(${.75+.25*eob(dt/.2)})`;el.style.opacity=cl(dt/.05);const w=el.scrollWidth;if(w>1000)el.style.fontSize=(150*1000/w)+'px';}
+    if(e.type==='tag'){el.style.transform=`translateX(${(1-eob(dt/.3))*-400}px)`;el.firstElementChild.style.opacity=.4+.6*Math.abs(Math.sin(t*4));}
+    if(e.type==='headline'){el.style.opacity=cl(dt/.12);el.style.transform=`translateY(${(1-eob(dt/.4))*120}px) rotate(${(1-eo(dt/.4))*-3}deg)`;}
+    if(e.type==='credit'){el.style.opacity=cl(dt/.2)*cl((e.t1-t)/.2);el.style.bottom=(layoutAt(t)==='split'?990:300)+'px';}});
+}
+window.render=render;
+</script></body></html>

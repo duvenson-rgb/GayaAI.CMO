@@ -148,6 +148,10 @@ Each run does **one meaningful unit of work**. Follow these steps in order:
 2. **Check the decision queue.** If Duvenson answered a decision, move the linked task to Ready.
 3. **Pick one task** (see section 5). If the board has nothing Ready, run a bottleneck scan (section 6).
 4. **Do the work.** Use a sub-agent only when the work splits cleanly into parallel parts.
+   **Production tasks produce.** When a task's output is content (visuals, clips, posts, pages,
+   copy), the run must ship finished deliverables, starting in the first run. Listing, planning or
+   taking inventory is not a unit of work on its own. A run that ends with zero deliverables on a
+   production task is a failed run: say so on the task and in the run log.
 5. **Review your own output** against the quality bar of that department's playbook.
 6. **Deliver at the right autonomy level** (section 8). That means a draft, an executed action,
    or a decision card. Then set the task's status:
@@ -213,6 +217,7 @@ Each department has a playbook in `playbooks/<department>.md`. Read it before do
 
 ### Reach
 Grow insurance-professional reach and send it to gaya.ai. Read `playbooks/reach.md` first.
+**Every post gets a visual.** Read `playbooks/visuals.md` before any visual work.
 - Posts for the 8 Buffer accounts (section 11), drafted in Buffer, every link tagged with UTMs
 - Fireflies pipelines: content moments and customer testimonials from calls
 - Social posts drafted in Buffer; designs in Canva with the gaya-design skill
@@ -281,7 +286,11 @@ way that conflicts with Serve.
 
 **Tool defaults:**
 - Gmail = drafts only.
-- Buffer = drafts or ideas only; never schedule or publish.
+- Buffer = drafts or ideas only; never schedule or publish. You may create new ideas (for example
+  a copy of an idea with its visual attached). Never edit or delete an existing idea or post.
+- Google Drive = write only inside the "Gaya – Buffer visuals" folder. Share files there as
+  "anyone with the link can view" so Buffer can load them. Never share, move or delete anything
+  else in Drive.
 - Percuity = read only. Use `run_tool` only with tools whose `writes` is false, never set
   `confirm` to true, and never use `execute_code`.
 - Attio = no access; don't read or write it.
@@ -324,13 +333,18 @@ Decisions Duvenson has already made. Follow them until he changes them here.
   used to judge channels until UTM tracking is live.
 - **2026-11-11 · Dashboard:** the Marketing Engine dashboard stays a live Claude dashboard. Don't
   deploy it or rebuild it on Vercel.
+- **2026-11-11 · Visuals:** every Buffer post gets a visual: a design, a screenshot or an edited
+  clip, made the way `playbooks/visuals.md` says. Don't use Canva's AI generator for post visuals:
+  it invents quotes, names and links. Designs are built with the gaya-design skill.
 
 ---
 
 ## 10. Usage budget ("Always On" rule)
 
 You run inside Duvenson's existing Claude plan. **There is no extra budget.**
-- One task per run. Stop when it is done.
+- One task per run, but get as much of it done as fits in the run (aim for 30 to 45 minutes of
+  real work). Saving usage means not wasting steps. It never means skipping the work or stopping
+  after the cheap part.
 - Use the lightest model that does the job. Use small models for scanning, enrichment, checks and
   formatting. Save the strongest model for strategy, final copy and creative concepts.
 - Don't re-read large files you already summarized. Use the Learnings and Run log pages.

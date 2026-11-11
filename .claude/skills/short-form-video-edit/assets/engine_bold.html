@@ -1,0 +1,252 @@
+<!-- engine_bold.html — devinjatho style overlay (transparent PNG frames over the graded base video).
+Needs next to it: fonts/ (Montserrat, Cinzel, Michroma) and data.js defining CAPS=[{t0,t1,parts:[{t,s}]}] and EDL={cuts,z,cx,cy}.
+Reusable: caption system (html(), fit, capY), card(), pop(), mapPt(), all CSS components.
+Per video: the graphic blocks inside render(t) (times, texts, which components) — copy, retime, delete what is unused.
+Last used on "Pale devan kamera" (60 s). -->
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:M;src:url(fonts/Montserrat-Variable.ttf);font-weight:100 900}
+@font-face{font-family:C;src:url(fonts/Cinzel-Variable.ttf);font-weight:400 900}
+@font-face{font-family:T;src:url(fonts/Michroma-Regular.ttf)}
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden}
+#stage{position:absolute;inset:0;font-family:M}
+.abs{position:absolute}
+#shade{position:absolute;left:0;right:0;bottom:0;height:900px;background:linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,.35) 45%,rgba(0,0,0,.72))}
+#topshade{position:absolute;left:0;right:0;top:0;height:260px;background:linear-gradient(to top,rgba(0,0,0,0),rgba(0,0,0,.35))}
+/* captions */
+#cap{position:absolute;left:30px;right:30px;text-align:center;transform-origin:50% 50%}
+#cap .ln{display:block;white-space:nowrap;font-weight:900;font-size:114px;line-height:.96;letter-spacing:-1px;color:#fff;
+  text-shadow:0 6px 18px rgba(0,0,0,.65),0 2px 3px rgba(0,0,0,.5)}
+.red{color:#ff2b43!important;text-shadow:0 0 14px rgba(255,30,60,.95),0 0 40px rgba(255,0,40,.7),0 4px 10px rgba(0,0,0,.6)!important}
+.green{color:#46ff5e!important;text-shadow:0 0 14px rgba(60,255,90,.9),0 0 42px rgba(20,230,60,.65),0 4px 10px rgba(0,0,0,.6)!important}
+.blue{color:#49b4ff!important;text-shadow:0 0 14px rgba(70,170,255,.95),0 0 40px rgba(30,120,255,.7),0 4px 10px rgba(0,0,0,.6)!important}
+.gold{font-family:C;font-weight:800;letter-spacing:0;text-transform:none;
+  background:linear-gradient(180deg,#fff8d0 0%,#ffd75a 45%,#c98a12 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important;
+  text-shadow:none!important;filter:drop-shadow(0 0 10px rgba(255,200,60,.85)) drop-shadow(0 0 30px rgba(255,170,0,.5)) drop-shadow(0 4px 8px rgba(0,0,0,.6))}
+/* cards */
+.card{position:absolute;left:120px;width:840px;border-radius:34px;background:rgba(18,19,24,.78);
+  border:1.5px solid rgba(255,255,255,.12);box-shadow:0 20px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);color:#fff;padding:34px 40px;box-sizing:border-box;opacity:0}
+.ttl{font-size:26px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,.55);text-transform:uppercase;margin-bottom:22px}
+.row{display:flex;align-items:center;gap:20px;margin:16px 0;font-size:40px;font-weight:800}
+.bar{flex:1;height:26px;border-radius:13px;background:rgba(255,255,255,.08);overflow:hidden;position:relative}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:13px}
+.rank{width:74px;font-size:40px;font-weight:900;color:rgba(255,255,255,.5)}
+.pct{width:120px;text-align:right;font-weight:800;font-size:36px}
+.av{width:96px;height:96px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:36px}
+.ico{position:absolute;opacity:0}
+#rec .br{position:absolute;width:110px;height:110px;border-color:#fff;border-style:solid;opacity:.9}
+#timer{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,#16181d 0%,#07080a 70%);opacity:0}
+#tnum{position:absolute;left:0;right:0;top:760px;text-align:center;font-family:T;font-size:170px;color:#fff;letter-spacing:6px;
+  text-shadow:0 0 30px rgba(255,255,255,.35)}
+#tlab{position:absolute;left:0;right:0;top:980px;text-align:center;font-family:T;font-size:30px;color:rgba(255,255,255,.55);word-spacing:120px;letter-spacing:4px}
+#tsub{position:absolute;left:0;right:0;top:1120px;text-align:center;font-weight:900;font-size:84px;color:#fff}
+#fade{position:absolute;inset:0;background:#000;opacity:0}
+</style></head><body><div id="stage">
+<div id="topshade"></div><div id="shade"></div>
+
+<!-- mic icon -->
+<svg id="mic" class="ico" width="190" height="190" viewBox="0 0 190 190">
+ <defs><radialGradient id="rg" cx="50%" cy="40%"><stop offset="0" stop-color="#ff5a6a"/><stop offset="1" stop-color="#b3001b"/></radialGradient></defs>
+ <circle cx="95" cy="95" r="80" fill="url(#rg)"/><circle cx="95" cy="95" r="80" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3"/>
+ <rect x="76" y="44" width="38" height="66" rx="19" fill="#fff"/>
+ <path d="M60 92 a35 35 0 0 0 70 0" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+ <line x1="95" y1="127" x2="95" y2="146" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+ <line x1="74" y1="148" x2="116" y2="148" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+</svg>
+
+<!-- fear ranking -->
+<div id="fear" class="card" style="top:1395px;height:300px">
+ <div class="ttl">Sa moun pi pè</div>
+ <div class="row" id="fr1"><div class="rank">#1</div><div style="width:330px" id="fr1t">Pale an piblik</div><div class="bar"><div class="fill" id="ff1"></div></div></div>
+ <div class="row" id="fr2"><div class="rank">#2</div><div style="width:330px">Lanmò</div><div class="bar"><div class="fill" id="ff2" style="background:rgba(255,255,255,.35)"></div></div></div>
+</div>
+
+<!-- REC viewfinder -->
+<div id="rec" class="abs" style="inset:0;opacity:0">
+ <div class="br" style="left:60px;top:150px;border-width:7px 0 0 7px;border-radius:14px 0 0 0"></div>
+ <div class="br" style="right:60px;top:150px;border-width:7px 7px 0 0;border-radius:0 14px 0 0"></div>
+ <div class="br" style="left:60px;bottom:330px;border-width:0 0 7px 7px;border-radius:0 0 0 14px"></div>
+ <div class="br" style="right:60px;bottom:330px;border-width:0 7px 7px 0;border-radius:0 0 14px 0"></div>
+ <div class="abs" style="left:100px;top:190px;font-weight:800;font-size:40px;color:#fff;display:flex;align-items:center;gap:14px">
+   <span id="recdot" style="width:26px;height:26px;border-radius:50%;background:#ff2b43;box-shadow:0 0 16px #ff2b43;display:inline-block"></span>REC</div>
+ <div id="tc" class="abs" style="right:100px;top:192px;font-family:T;font-size:32px;color:#fff">00:00:00</div>
+ <div class="abs" style="left:100px;bottom:370px;font-family:T;font-size:24px;color:rgba(255,255,255,.75)">4K · 30FPS</div>
+ <div class="abs" style="right:100px;bottom:368px;width:64px;height:28px;border:3px solid rgba(255,255,255,.8);border-radius:6px;box-sizing:border-box;padding:3px"><div style="width:70%;height:100%;background:#46ff5e;border-radius:2px"></div></div>
+</div>
+
+<!-- level card -->
+<div id="lvl" class="card" style="top:1395px;height:220px">
+ <div style="display:flex;justify-content:space-between;align-items:baseline"><div class="ttl" style="margin:0">Nivo ou</div><div id="lvn" style="font-size:64px;font-weight:900;color:#46ff5e;text-shadow:0 0 20px rgba(60,255,90,.7)">1</div></div>
+ <div class="bar" style="height:34px;margin-top:20px;flex:none"><div class="fill" id="lvf" style="background:linear-gradient(90deg,#1fae3a,#46ff5e);box-shadow:0 0 24px #46ff5e"></div></div>
+</div>
+
+<!-- rule badge -->
+<div id="rule" class="abs" style="left:0;right:0;text-align:center;opacity:0">
+ <span style="display:inline-block;padding:14px 40px;border-radius:60px;border:3px solid #ffd75a;color:#ffd75a;font-weight:900;font-size:44px;letter-spacing:3px;background:rgba(0,0,0,.45);box-shadow:0 0 30px rgba(255,200,60,.45)">RÈG #1</span>
+</div>
+
+<!-- eyes -->
+<div id="eyes"></div>
+
+<!-- profile card -->
+<div id="prof" class="card" style="top:1475px;height:230px">
+ <div style="display:flex;align-items:center;gap:28px">
+  <div class="av" style="background:linear-gradient(135deg,#ffd75a,#ff7a00);color:#1a1000;font-size:30px">CR7</div>
+  <div style="flex:1"><div style="font-size:42px;font-weight:800;display:flex;align-items:center;gap:12px">cristiano
+    <svg width="40" height="40" viewBox="0 0 24 24"><path fill="#49b4ff" d="M12 1l2.6 2.2 3.4-.4.9 3.3 3 1.7-1.3 3.2 1.3 3.2-3 1.7-.9 3.3-3.4-.4L12 23l-2.6-2.2-3.4.4-.9-3.3-3-1.7L3.4 12 2.1 8.8l3-1.7.9-3.3 3.4.4z"/><path d="M7.5 12.3l3 3 6-6.2" stroke="#fff" stroke-width="2.4" fill="none"/></svg></div>
+   <div style="font-size:30px;color:rgba(255,255,255,.55);margin-top:6px">Cristiano Ronaldo</div></div>
+ </div>
+ <div style="display:flex;gap:60px;margin-top:22px;font-size:30px;color:rgba(255,255,255,.6)">
+  <div><b id="pfol" style="color:#fff;font-size:44px">0</b> abòne</div><div><b style="color:#fff;font-size:44px">1.2K</b> videyo</div></div>
+</div>
+
+<!-- poll -->
+<div id="poll" class="card" style="top:1395px;height:300px">
+ <div class="ttl">Sondaj · Èske w te panse avè l jodi a?</div>
+ <div class="row"><div style="width:120px">WI</div><div class="bar" style="height:54px;border-radius:16px"><div class="fill" id="pw" style="background:rgba(255,255,255,.3);border-radius:16px"></div></div><div class="pct" id="pwp">0%</div></div>
+ <div class="row"><div style="width:120px" id="pnl">NON</div><div class="bar" style="height:54px;border-radius:16px"><div class="fill" id="pn" style="background:linear-gradient(90deg,#c4001c,#ff2b43);box-shadow:0 0 24px rgba(255,40,60,.8);border-radius:16px"></div></div><div class="pct" id="pnp">0%</div></div>
+</div>
+
+<!-- thought bubble -->
+<div id="think" class="abs" style="opacity:0;transform-origin:0 100%;width:300px;height:300px">
+ <div class="abs" style="left:0;top:230px;width:30px;height:30px;border-radius:50%;background:#fff"></div>
+ <div class="abs" style="left:34px;top:170px;width:48px;height:48px;border-radius:50%;background:#fff"></div>
+ <div class="abs" style="left:80px;top:0;width:200px;height:170px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(0,0,0,.4)">
+   <div class="av" style="background:linear-gradient(135deg,#ffd75a,#ff7a00);color:#1a1000;width:104px;height:104px;font-size:34px">CR7</div></div>
+</div>
+
+<!-- chat -->
+<div id="chat" class="abs" style="left:120px;width:840px;top:1390px;opacity:0">
+ <div id="ch1" style="display:inline-block;background:#2b2d33;color:#fff;font-size:38px;font-weight:600;padding:22px 32px;border-radius:34px 34px 34px 8px;margin-bottom:18px">Ou wè videyo li a? 😬</div><br>
+ <div id="ch2" style="display:inline-block;background:#2b2d33;color:#fff;font-size:38px;font-weight:600;padding:22px 32px;border-radius:34px 34px 34px 8px;margin-bottom:18px">Ide l yo pa bon menm…</div>
+ <div id="chx" class="abs" style="left:300px;top:-10px;width:220px;height:220px;opacity:0">
+  <svg width="220" height="220" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#ff2b43" /><path d="M32 32L68 68M68 32L32 68" stroke="#fff" stroke-width="11" stroke-linecap="round"/></svg></div>
+</div>
+
+<!-- comments -->
+<div id="com" class="card" style="top:1395px;height:330px;padding:30px 38px">
+ <div class="ttl" style="margin-bottom:14px"><span id="cnum">1</span> kòmantè</div>
+ <div id="c1" style="display:flex;gap:22px;align-items:center;margin-bottom:22px">
+  <div class="av" style="width:78px;height:78px;background:linear-gradient(135deg,#49b4ff,#7a3dff);font-size:30px">JR</div>
+  <div style="flex:1"><div style="font-size:30px;font-weight:800">jeanrobert.ht <span style="color:rgba(255,255,255,.4);font-weight:600">2 min</span></div><div style="font-size:36px;font-weight:500;margin-top:4px">Bon pwen sa a 🔥</div></div>
+  <svg width="40" height="40" viewBox="0 0 24 24"><path fill="#ff2b43" d="M12 21s-7.5-4.6-9.5-9.1C1 8.2 3.3 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3.7 0 6 3.7 4.5 7.4C19.5 16.4 12 21 12 21z"/></svg></div>
+ <div id="c2" style="display:flex;gap:22px;align-items:center;opacity:0">
+  <div class="av" style="width:78px;height:78px;background:linear-gradient(135deg,#46ff5e,#0a8f5a);font-size:30px;color:#032">NP</div>
+  <div style="flex:1"><div style="font-size:30px;font-weight:800">naika.p <span style="color:rgba(255,255,255,.4);font-weight:600">1 min</span></div><div style="font-size:36px;font-weight:500;margin-top:4px">Mwen dakò 100%</div></div>
+  <svg width="40" height="40" viewBox="0 0 24 24"><path fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2" d="M12 21s-7.5-4.6-9.5-9.1C1 8.2 3.3 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3.7 0 6 3.7 4.5 7.4C19.5 16.4 12 21 12 21z"/></svg></div>
+</div>
+
+<!-- compare card -->
+<div id="cmp" class="card" style="top:1395px;height:300px">
+ <div class="ttl">Konbyen tan yo panse avè w</div>
+ <div class="row"><div style="width:120px;color:rgba(255,255,255,.7)">YO</div><div class="bar" style="height:44px"><div class="fill" id="cy" style="background:rgba(255,255,255,.45)"></div></div><div class="pct" style="width:200px" id="cyt">60 seg</div></div>
+ <div class="row"><div style="width:120px">OU</div><div class="bar" style="height:44px"><div class="fill" id="co" style="background:linear-gradient(90deg,#c4001c,#ff2b43);box-shadow:0 0 24px rgba(255,40,60,.8)"></div></div><div class="pct" style="width:200px;color:#ff2b43" id="cot">4 èdtan</div></div>
+</div>
+
+<!-- AF focus reticle -->
+<div id="af" class="abs" style="opacity:0;width:520px;height:600px">
+ <div class="abs" style="left:0;top:0;width:80px;height:80px;border:6px solid #46ff5e;border-width:6px 0 0 6px"></div>
+ <div class="abs" style="right:0;top:0;width:80px;height:80px;border:6px solid #46ff5e;border-width:6px 6px 0 0"></div>
+ <div class="abs" style="left:0;bottom:0;width:80px;height:80px;border:6px solid #46ff5e;border-width:0 0 6px 6px"></div>
+ <div class="abs" style="right:0;bottom:0;width:80px;height:80px;border:6px solid #46ff5e;border-width:0 6px 6px 0"></div>
+ <div class="abs" style="left:0;right:0;top:-62px;text-align:center;font-family:T;font-size:28px;color:#46ff5e;text-shadow:0 0 12px #46ff5e">AF · LOCK</div>
+</div>
+
+<!-- caption -->
+<div id="cap"></div>
+
+<!-- full-screen timer -->
+<div id="timer"><div id="tnum">00:30</div><div id="tlab">MINIT SEGONN</div><div id="tsub">30 A <span class="red">60</span> SEGONN</div></div>
+<div id="fade"></div>
+</div>
+<script src="data.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const eo=x=>1-Math.pow(1-cl(x),3);
+const eob=x=>{x=cl(x);const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+// visibility envelope with pop
+function env(t,t0,t1,fi=.18,fo=.18){ if(t<t0||t>t1) return 0; return Math.min(cl((t-t0)/fi),cl((t1-t)/fo)); }
+function segAt(t){let i=0;for(let k=0;k<EDL.cuts.length;k++) if(t>=EDL.cuts[k]) i=k; return i;}
+function zoomAt(t){return EDL.z[segAt(t)];}
+// map a point in wide-frame output coords to current zoomed output coords
+function mapPt(x,y,t){const z=zoomAt(t),W=1080,H=1920;
+  const ox=cl(EDL.cx*W-W/z/2,0,W-W/z), oy=cl(EDL.cy*H-H/z/2,0,H-H/z); return [(x-ox)*z,(y-oy)*z];}
+function capY(t){const z=zoomAt(t);return 1215+(z-1)*820;}
+function card(id,t,t0,t1){const e=$(id);const a=env(t,t0,t1,.22,.2);e.style.opacity=a;
+  const p=eob((t-t0)/.35); const out=t>t1-.2?(1-a)*40:0;
+  e.style.transform=`translateY(${(1-p)*80+out}px) scale(${.92+.08*p})`; return a>0;}
+function pop(e,t,t0,t1,x,y,s=1){const a=env(t,t0,t1,.12,.15);e.style.opacity=a;const p=eob((t-t0)/.3);
+  e.style.left=x+'px';e.style.top=y+'px';e.style.transform=`scale(${s*(.3+.7*p)*(t>t1-.15?a:1)})`;}
+function html(c){ // build lines (split into max 2 lines by words, balance)
+  const toks=[];c.parts.forEach(p=>p.t.split(' ').forEach(w=>toks.push({w,s:p.s})));
+  const total=toks.map(x=>x.w).join(' ').length; let lines=[toks];
+  const gi=toks.findIndex(x=>x.s==='gold'); if(gi>0 && c.parts.length>1){lines=[toks.slice(0,gi),toks.slice(gi)];return lines.map(l=>'<span class="ln"><span class="in">'+l.map(x=>x.s==='w'?x.w:`<span class="${x.s}">${x.w}</span>`).join(' ')+'</span></span>').join('');}
+  if(total>13){let best=null;for(let k=1;k<toks.length;k++){const a=toks.slice(0,k).map(x=>x.w).join(' ').length,b=toks.slice(k).map(x=>x.w).join(' ').length;const d=Math.max(a,b);if(!best||d<best[0])best=[d,k];}
+    lines=[toks.slice(0,best[1]),toks.slice(best[1])];}
+  return lines.map(l=>'<span class="ln"><span class="in">'+l.map(x=>x.s==='w'?x.w:`<span class="${x.s}">${x.w}</span>`).join(' ')+'</span></span>').join('');}
+let lastCap=-1; const EYES=[[150,500,1.1],[880,380,1],[900,800,.9]];
+$('eyes').innerHTML=EYES.map((e,i)=>`<svg id="eye${i}" class="ico" width="150" height="150" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="rgba(20,20,24,.85)" stroke="rgba(255,60,80,.8)" stroke-width="3"/><g id="eg${i}"><path d="M14 50 Q50 18 86 50 Q50 82 14 50Z" fill="#fff"/><circle cx="50" cy="50" r="15" fill="#ff2b43"/><circle cx="50" cy="50" r="7" fill="#111"/></g></svg>`).join('');
+function render(t){
+  const inTimer=t>=45.38&&t<46.5;
+  // caption
+  let ci=-1; for(let i=0;i<CAPS.length;i++){if(t>=CAPS[i].t0&&t<CAPS[i].t1){ci=i;break;}}
+  const cap=$('cap');
+  if(ci<0||inTimer){cap.style.opacity=0;} else {
+    const c=CAPS[ci]; if(ci!==lastCap){cap.innerHTML=html(c);lastCap=ci;
+      // fit width
+      cap.querySelectorAll('.ln').forEach(l=>{l.style.fontSize='114px';});
+      cap.querySelectorAll('.ln').forEach(l=>{const w=l.querySelector('.in').offsetWidth;if(w>970)l.style.fontSize=(114*970/w)+'px';});}
+    const dt=t-c.t0,p=eob(dt/.16); cap.style.opacity=cl(dt/.05);
+    const h=cap.offsetHeight; cap.style.top=(capY(t)-h/2)+'px';
+    cap.style.transform=`scale(${.78+.22*p})`;
+  }
+  // mic
+  pop($('mic'),t,2.36,3.45,780,300,1);
+  $('mic').style.transform+=` translateY(${Math.sin(t*5)*6}px)`;
+  // fear ranking: bars fill, then swap highlight at 4.68
+  if(card('fear',t,3.45,5.55)){const f=eo((t-3.6)/.7); $('ff1').style.width=(100*f)+'%'; $('ff2').style.width=(72*f)+'%';
+    const h=cl((t-4.68)/.15); $('ff1').style.background=`linear-gradient(90deg,rgba(196,0,28,${.4+.6*h}),rgba(255,43,67,${.4+.6*h}))`;
+    $('ff1').style.boxShadow=`0 0 ${24*h}px rgba(255,40,60,.9)`; $('fr1t').style.color=h>0?`rgb(255,${255-212*h},${255-188*h})`:'#fff';}
+  // REC
+  {const a=env(t,6.70,11.30,.15,.2);const r=$('rec');r.style.opacity=a;r.style.transform=`scale(${1.06-.06*eo((t-6.7)/.3)})`;
+   $('recdot').style.opacity=(Math.floor(t*2)%2)?.25:1; const s=Math.max(0,t-6.7);
+   $('tc').textContent='00:00:'+String(Math.floor(s)).padStart(2,'0')+':'+String(Math.floor((s%1)*30)).padStart(2,'0');}
+  // level
+  if(card('lvl',t,11.45,14.95)){const f=eo((t-11.8)/2.6); $('lvf').style.width=(100*f)+'%'; $('lvn').textContent='NIVO '+Math.max(1,Math.round(100*f));}
+  // rule badge
+  {const e=$('rule');const a=env(t,14.62,17.80,.12,.2);e.style.opacity=a;e.style.top=(capY(t)-230)+'px';e.style.transform=`scale(${.5+.5*eob((t-14.62)/.3)})`;}
+  // eyes
+  EYES.forEach((ey,i)=>{const t0=18.72+i*.12;const [x,y]=mapPt(ey[0],ey[1],t);pop($('eye'+i),t,t0,20.3,x-75,y-75,ey[2]);
+    const close=cl((t-19.5)/.18); const blink=(t>18.9&&t<19.5)?(Math.abs(Math.sin((t+i)*3))>.97?.1:1):1;
+    $('eg'+i).setAttribute('transform',`translate(0 ${50*(1-Math.min(blink,1-close*.95))}) scale(1 ${Math.min(blink,1-close*.95)})`);});
+  // profile
+  if(card('prof',t,21.60,24.72)){const f=eo((t-21.75)/1.6); $('pfol').textContent=(600*f).toFixed(0)+'M'+(f>.99?'+':'');}
+  // poll
+  if(card('poll',t,24.72,27.3)){const f=eo((t-26.12)/.6); $('pw').style.width=(7*f)+'%'; $('pn').style.width=(93*f)+'%';
+    $('pwp').textContent=Math.round(7*f)+'%'; $('pnp').textContent=Math.round(93*f)+'%'; $('pnl').style.color=f>.5?'#ff2b43':'#fff';}
+  // thought bubble
+  {const [x,y]=mapPt(660,420,t);pop($('think'),t,29.75,31.05,Math.min(x,1080-420),Math.max(60,y-240),1.35);}
+  // chat + X
+  if(card('chat',t,35.9,38.75)){$('ch1').style.opacity=cl((t-35.9)/.15);$('ch2').style.opacity=cl((t-36.5)/.15);
+    const x=$('chx');const a=env(t,37.82,38.75,.1,.15);x.style.opacity=a;x.style.transform=`scale(${.3+.7*eob((t-37.82)/.25)}) rotate(${(1-eo((t-37.82)/.3))*-40}deg)`;
+    const sh=(t>37.82&&t<38.1)?Math.sin(t*120)*10:0; $('ch1').style.transform=$('ch2').style.transform=`translateX(${sh}px)`;
+    $('ch1').style.filter=$('ch2').style.filter=t>37.82?'grayscale(1) brightness(.6)':'none';}
+  // comments
+  if(card('com',t,39.05,45.25)){const b=cl((t-40.42)/.2);$('c2').style.opacity=b;$('c2').style.transform=`translateY(${(1-eo(b))*30}px)`;$('cnum').textContent=t>=40.42?'2':'1';}
+  // timer full screen
+  {const a=t>=45.38&&t<46.5?1:0;$('timer').style.opacity=a;
+   if(a){const f=cl((t-45.55)/.9);const s=30+Math.round(30*eo(f));$('tnum').textContent=(s>=60?'01:00':'00:'+String(s).padStart(2,'0'));
+     $('tsub').style.opacity=cl((t-45.55)/.08);$('tsub').style.transform=`scale(${.8+.2*eob((t-45.55)/.16)})`;}}
+  // compare
+  if(card('cmp',t,48.25,49.95)){const f=eo((t-48.4)/.8);$('cy').style.width=(4*f)+'%';$('co').style.width=(100*f)+'%';}
+  // AF reticle
+  {const e=$('af');const a=env(t,52.7,56.15,.08,.2);const [x,y]=mapPt(500,760,t);e.style.opacity=a*((t<53.1)?(Math.floor(t*14)%2?.4:1):1);
+   const p=eo((t-52.7)/.3);e.style.left=(x-260)+'px';e.style.top=(y-300)+'px';e.style.transform=`scale(${1.35-.35*p})`;}
+  // fade out
+  $('fade').style.opacity=cl((t-59.9)/.33);
+}
+window.render=render;
+</script></body></html>
