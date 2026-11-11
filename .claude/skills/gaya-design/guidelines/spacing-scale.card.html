@@ -1,0 +1,27 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Spacing Scale" subtitle="4px base grid · space-1 → space-16" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-card); }
+  .row { display: flex; align-items: flex-end; gap: 14px; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .bar { background: var(--orange-500); border-radius: var(--radius-xs); width: 26px; }
+  .tok { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="col"><div class="bar" style="height:var(--space-1)"></div><div class="tok">1·4</div></div>
+    <div class="col"><div class="bar" style="height:var(--space-2)"></div><div class="tok">2·8</div></div>
+    <div class="col"><div class="bar" style="height:var(--space-3)"></div><div class="tok">3·12</div></div>
+    <div class="col"><div class="bar" style="height:var(--space-4)"></div><div class="tok">4·16</div></div>
+    <div class="col"><div class="bar" style="height:var(--space-6)"></div><div class="tok">6·24</div></div>
+    <div class="col"><div class="bar" style="height:var(--space-8)"></div><div class="tok">8·32</div></div>
+    <div class="col"><div class="bar" style="height:var(--space-12)"></div><div class="tok">12·48</div></div>
+    <div class="col"><div class="bar" style="height:var(--space-16)"></div><div class="tok">16·64</div></div>
+  </div>
+</body>
+</html>

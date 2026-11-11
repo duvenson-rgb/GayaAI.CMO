@@ -1,0 +1,154 @@
+/* ============================================================
+   GAYA — Color tokens
+   ------------------------------------------------------------
+   Brand palette (from the Brand Manual): four colors —
+   Orange (primary identifier), Green, Yellow, Purple.
+     Orange  #EF5A24   CMYK 0/80/100/0
+     Green   #036303   CMYK 100/35/100/10
+     Yellow  #F9AE3B   CMYK 0/35/100/0
+     Purple  #521184   CMYK 85/100/10/4
+   Orange is THE brand color (the isotype). Green / Yellow / Purple
+   are supporting accents — use sparingly, one accent per surface.
+   ============================================================ */
+:root {
+  /* ---- Brand anchors ---- */
+  --gaya-orange: #EF5A24;
+  --gaya-green:  #036303;
+  --gaya-yellow: #F9AE3B;
+  --gaya-purple: #521184;
+
+  /* ---- Orange scale (primary) ---- */
+  --orange-50:  #FEF2EC;
+  --orange-100: #FDDFD1;
+  --orange-200: #FABBA1;
+  --orange-300: #F6926C;
+  --orange-400: #F27144;
+  --orange-500: #EF5A24;  /* brand */
+  --orange-600: #D8430F;
+  --orange-700: #B0340B;
+  --orange-800: #882B0E;
+  --orange-900: #6E2710;
+
+  /* ---- Green scale ---- */
+  --green-50:  #E9F4E9;
+  --green-100: #C8E4C8;
+  --green-200: #8FC78F;
+  --green-300: #4F9F4F;
+  --green-400: #1C7D1C;
+  --green-500: #036303;  /* brand green */
+  --green-600: #035003;
+  --green-700: #033E03;
+  --green-800: #042F04;
+  --green-900: #042204;
+
+  /* ---- Yellow scale ---- */
+  --yellow-50:  #FEF6E7;
+  --yellow-100: #FDE9C2;
+  --yellow-200: #FCD68C;
+  --yellow-300: #FAC25A;
+  --yellow-400: #F9AE3B;  /* brand yellow */
+  --yellow-500: #EC9514;
+  --yellow-600: #C9790C;
+  --yellow-700: #9E5E0E;
+  --yellow-800: #7C4A11;
+  --yellow-900: #663D12;
+
+  /* ---- Purple scale ---- */
+  --purple-50:  #F1EAF7;
+  --purple-100: #DECAED;
+  --purple-200: #BD96DA;
+  --purple-300: #9760C4;
+  --purple-400: #7335A8;
+  --purple-500: #521184;  /* brand purple */
+  --purple-600: #460E70;
+  --purple-700: #380B5A;
+  --purple-800: #2C0947;
+  --purple-900: #210735;
+
+  /* ---- Neutral (warm-leaning grey, the two "balancing greys") ---- */
+  --neutral-0:   #FFFFFF;
+  --neutral-25:  #FBFAF9;
+  --neutral-50:  #F6F4F2;
+  --neutral-100: #EDEAE6;
+  --neutral-200: #DED9D3;
+  --neutral-300: #C7C0B8;
+  --neutral-400: #A39B91;
+  --neutral-500: #7E766C;
+  --neutral-600: #5F584F;
+  --neutral-700: #463F38;
+  --neutral-800: #2C2723;
+  --neutral-900: #1A1714;
+  --neutral-950: #100E0C;
+  --black:       #141210;
+  --white:       #FFFFFF;
+
+  /* ============================================================
+     SEMANTIC ALIASES — reference these in components, not raw scales
+     ============================================================ */
+
+  /* Text */
+  --text-primary:   var(--neutral-900);
+  --text-secondary: var(--neutral-600);
+  --text-muted:     var(--neutral-500);
+  --text-disabled:  var(--neutral-400);
+  --text-inverse:   var(--neutral-0);
+  --text-brand:     var(--orange-600);
+  --text-link:      var(--orange-600);
+
+  /* Surfaces */
+  --surface-page:    var(--neutral-25);
+  --surface-card:    var(--neutral-0);
+  --surface-raised:  var(--neutral-0);
+  --surface-sunken:  var(--neutral-50);
+  --surface-inverse: var(--neutral-900);
+  --surface-brand-subtle: var(--orange-50);
+
+  /* Borders */
+  --border-subtle:  var(--neutral-100);
+  --border-default: var(--neutral-200);
+  --border-strong:  var(--neutral-300);
+  --border-brand:   var(--orange-500);
+
+  /* Brand / interactive */
+  --brand:        var(--orange-500);
+  --brand-hover:  var(--orange-600);
+  --brand-active: var(--orange-700);
+  --on-brand:     var(--white);
+
+  /* Supporting accents */
+  --accent-green:  var(--green-500);
+  --accent-yellow: var(--yellow-400);
+  --accent-purple: var(--purple-500);
+
+  /* Status (mapped onto the brand quartet where possible) */
+  --success:        var(--green-500);
+  --success-subtle: var(--green-50);
+  --warning:        var(--yellow-400);
+  --warning-subtle: var(--yellow-50);
+  --danger:         var(--orange-600);
+  --danger-subtle:  var(--orange-50);
+  --info:           var(--purple-500);
+  --info-subtle:    var(--purple-50);
+
+  /* Purple stage — the brand's bold alternate background (social
+     banners, announcements, hero bands). Flat brand purple, white
+     bold type, orange isotype + orange accent text, optional soft
+     grainy glow bleeding in from one edge. */
+  --surface-purple:        var(--purple-500);
+  --surface-purple-deep:   var(--purple-700);
+  --on-purple:             var(--white);
+  --on-purple-muted:       var(--purple-100);
+  --on-purple-accent:      var(--orange-500);
+  --border-on-purple:      color-mix(in srgb, var(--white) 18%, transparent);
+  --glow-lavender:         #C9A9D6;
+  --glow-rose:             #E8A2B0;
+
+  /* Marketing surfaces (from GAYA flyers, decks, social posts) */
+  --surface-paper:        #FBF8F5;   /* warm off-white — default for covers, posts, slides */
+  --surface-ink:          #141210;   /* near-black — title / quote slides */
+  --gradient-warm: linear-gradient(155deg, #FFFFFF 0%, #FDF4EF 52%, #FAE6DB 100%); /* @kind other */ /* testimonial posts */
+  --on-ink-accent:        var(--orange-300); /* eyebrow color on --surface-ink */
+
+  /* Focus */
+  --focus-ring: color-mix(in srgb, var(--orange-500) 45%, transparent);
+}

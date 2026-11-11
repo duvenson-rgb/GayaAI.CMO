@@ -1,0 +1,59 @@
+/* ============================================================
+   GAYA — Typography tokens
+   ------------------------------------------------------------
+   Montserrat is the one brand typeface: display, headings, body, UI, eyebrows.
+   Hierarchy comes from weight (400 → 800) and size, not from font changes.
+   Mono     = JetBrains Mono — data values only (policy numbers, codes).
+   ============================================================ */
+:root {
+  /* Families */
+  --font-display: "Montserrat", system-ui, sans-serif;
+  --font-body:    "Montserrat", system-ui, sans-serif;
+  --font-accent:  "Montserrat", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Weights */
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-extrabold: 800;
+
+  /* Type scale (1.250 major-third-ish, tuned) */
+  --text-2xs:  0.6875rem;  /* 11px — legal / micro labels */
+  --text-xs:   0.75rem;    /* 12px */
+  --text-sm:   0.875rem;   /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.375rem;   /* 22px */
+  --text-2xl:  1.75rem;    /* 28px */
+  --text-3xl:  2.1875rem;  /* 35px */
+  --text-4xl:  2.75rem;    /* 44px */
+  --text-5xl:  3.5rem;     /* 56px */
+  --text-6xl:  4.5rem;     /* 72px */
+  --text-7xl:  5.75rem;    /* 92px */
+
+  /* Line heights */
+  --leading-none:    1;
+  --leading-tight:   1.12;
+  --leading-snug:    1.28;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.7;
+
+  /* Letter spacing — display likes air, the logo is widely tracked */
+  --tracking-tighter: -0.02em;
+  --tracking-tight:   -0.01em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.04em;
+  --tracking-wider:   0.08em;
+  --tracking-widest:  0.18em;  /* eyebrows / logo lockup */
+
+  /* ---- Semantic roles ---- */
+  --display-font:    var(--font-display);
+  --display-weight:  var(--weight-bold);
+  --heading-font:    var(--font-display);
+  --body-font:       var(--font-body);
+  --eyebrow-font:    var(--font-accent);
+  --eyebrow-tracking: var(--tracking-widest);
+}

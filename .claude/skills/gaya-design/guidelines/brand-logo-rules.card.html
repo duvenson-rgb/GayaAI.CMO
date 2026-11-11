@@ -1,0 +1,28 @@
+<!-- @dsCard group="Brand" viewport="700x220" name="Logo Clear Space & Misuse" subtitle="Keep an A-height margin; never distort, recolor or add effects" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+body{margin:0;padding:20px;background:var(--surface-card);display:grid;grid-template-columns:1.2fr 1fr;gap:18px;align-items:center}
+.cs{position:relative;padding:28px;border:1.5px dashed var(--orange-300);border-radius:var(--radius-sm);display:flex;justify-content:center;background:var(--orange-50)}
+.cs img{height:64px;background:#fff;outline:1px solid var(--orange-200)}
+.cs .k{position:absolute;top:6px;left:8px}
+.k{font-family:var(--font-mono);font-size:10px;color:var(--text-muted)}
+.bad{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.b{height:66px;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative;overflow:hidden}
+.b img{height:28px}
+.x{font-family:var(--font-accent);font-weight:600;font-size:10px;color:var(--danger)}
+</style>
+</head>
+<body>
+<div class="cs"><span class="k">clear space = height of "A"</span><img src="../assets/logo/gaya-lockup-color.svg" alt="GAYA"></div>
+<div class="bad">
+<div class="b"><img src="../assets/logo/gaya-lockup-color.svg" style="transform:scaleX(1.5)" alt=""><span class="x">✕ Don't stretch</span></div>
+<div class="b"><img src="../assets/logo/gaya-lockup-color.svg" style="filter:hue-rotate(160deg)" alt=""><span class="x">✕ Don't recolor</span></div>
+<div class="b"><img src="../assets/logo/gaya-lockup-color.svg" style="transform:rotate(-12deg)" alt=""><span class="x">✕ Don't rotate</span></div>
+<div class="b"><img src="../assets/logo/gaya-lockup-color.svg" style="filter:drop-shadow(3px 3px 2px rgba(0,0,0,.5))" alt=""><span class="x">✕ No effects</span></div>
+</div>
+</body>
+</html>

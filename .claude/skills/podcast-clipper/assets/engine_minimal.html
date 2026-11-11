@@ -1,0 +1,115 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#000;width:1080px;height:1920px;overflow:hidden}canvas{display:block}</style></head>
+<!-- engine_minimal.html — thedankoe style, opaque black canvas frames.
+Reusable primitives: dot(), line(), arc(), label(), orbit(), caption(), easing helpers.
+Per video: CUES (or captions.js from srt_tools.py tojs), END, and the scene blocks in render(t).
+Last used on "Pri w peye pou disiplin" (10.9 s). -->
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script src="captions.js" onerror="0"></script>
+<script>
+const C=document.getElementById('c'),g=C.getContext('2d');
+const W=1080,H=1920,CX=540,CY=1000;
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const eo=x=>1-Math.pow(1-cl(x),3), eio=x=>{x=cl(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+// SRT cues (approved)
+const CUES=window.CUES||[[0,.74,"pri w peye"],[.74,1.38,"lè w gen disiplin"],[1.38,2.8,"se ke tout jou w yo sanble"],
+ [2.96,3.5,"pri w peye"],[3.5,4.22,"lè w pa gen disiplin"],[4.22,5.7,"se ke tout ane w yo ap sanble"],
+ [5.95,6.72,"lè m tande bagay sa"],[6.72,8.4,"m fè 5 minit ap reflechi avè l"],[9.4,10.9,"e li reyèl."]];
+const END=10.9;
+function fadeWin(t,t0,t1,fi=.18,fo=.18){return Math.min(cl((t-t0)/fi),cl((t1-t)/fo));}
+function stroke(a,w=3){g.strokeStyle=`rgba(255,255,255,${a})`;g.lineWidth=w;g.lineCap='round';}
+function dot(x,y,r,a,glow=1){
+  if(a<=0)return;
+  const gr=g.createRadialGradient(x,y,0,x,y,r*5*glow);gr.addColorStop(0,`rgba(255,255,255,${.35*a*glow})`);gr.addColorStop(1,'rgba(255,255,255,0)');
+  g.fillStyle=gr;g.beginPath();g.arc(x,y,r*5*glow,0,TAU);g.fill();
+  g.fillStyle=`rgba(255,255,255,${a})`;g.beginPath();g.arc(x,y,r,0,TAU);g.fill();}
+function line(x1,y1,x2,y2,p,a,w=3){if(p<=0||a<=0)return;stroke(a,w);g.beginPath();g.moveTo(x1,y1);g.lineTo(lerp(x1,x2,p),lerp(y1,y2,p));g.stroke();}
+function arc(cx,cy,r,p,a,start=-Math.PI/2,w=3){if(p<=0||a<=0)return;stroke(a,w);g.beginPath();g.arc(cx,cy,r,start,start+TAU*p);g.stroke();}
+function label(x,y,word,num,a){ if(a<=0)return;
+  g.font='400 34px Poppins';g.textBaseline='middle';
+  const ww=g.measureText(word).width; g.font='500 38px Poppins'; const nw=g.measureText(num).width;
+  const bw=nw+26,bh=58,gap=word?16:0,tot=ww+gap+bw,x0=x-tot/2;
+  g.globalAlpha=a; g.font='400 34px Poppins'; g.fillStyle='rgba(255,255,255,.55)'; g.fillText(word,x0,y);
+  g.fillStyle='#161616'; g.strokeStyle='rgba(255,255,255,.18)'; g.lineWidth=2;
+  g.beginPath(); g.roundRect(x0+ww+gap,y-bh/2,bw,bh,6); g.fill(); g.stroke();
+  g.font='500 38px Poppins'; g.fillStyle='#fff'; g.fillText(num,x0+ww+gap+13,y+1); g.globalAlpha=1;}
+function caption(t){
+  for(let i=0;i<CUES.length;i++){ const [t0,t1,s]=CUES[i]; const nx=CUES[i+1];
+    const tight=nx&&nx[0]-t1<.15; const te=tight?t1:t1+.15;   // no overlap with the next cue
+    if(t>=t0&&t<te){
+      const a=Math.min(cl((t-t0)/.16),cl((te-t)/.1)); const rise=(1-eo((t-t0)/.3))*14;
+      g.save(); g.globalAlpha=a; g.filter=`blur(${(1-cl((t-t0)/.16))*6}px)`; g.font='400 50px Poppins'; g.fillStyle='#fff';
+      g.textAlign='center'; g.textBaseline='middle'; g.fillText(s.toLowerCase(),W/2,520+rise); g.restore(); } } }
+// orbit helper: dot orbits, counter increments per lap
+function orbit(t,t0,r,lap,a,word,startN){
+  const e=Math.max(0,t-t0); const laps=e/lap; const ang=-Math.PI/2+TAU*laps;
+  // faint trail
+  for(let k=10;k>0;k--){const aa=ang-k*.06;dot(CX+r*Math.cos(aa),CY+r*Math.sin(aa),9-k*.5,a*.05*(10-k)/10,0);}
+  dot(CX+r*Math.cos(ang),CY+r*Math.sin(ang),13,a,1);
+  const n=startN+Math.floor(laps); label(CX,CY,word,String(n).padStart(2,'0'),a*.95);
+  return n;}
+function render(t){
+  g.clearRect(0,0,W,H); g.fillStyle='#000'; g.fillRect(0,0,W,H);
+  const L=360,R=720;
+  // ---------- Scene A: discipline (0 - 2.9) ----------
+  if(t<2.95){
+    const aLine=1-cl((t-1.38)/.2);
+    // straight line + tick
+    line(L,CY,R,CY,eio((t-.1)/.55),.9*aLine);
+    line(R,CY-60,R,CY+60,eio((t-.55)/.25),.9*aLine);
+    // dot walks the line to the tick
+    if(t<1.5){const p=eio((t-.8)/.55);dot(lerp(L,R,p),CY,13,cl(t/.25)*(t<1.38?1:1-cl((t-1.38)/.12)));}
+    // loop
+    const aLoop=cl((t-2.62)/-.28+1); // fade out 2.62-2.9
+    const aL=Math.min(cl((t-1.38)/.15),1-cl((t-2.62)/.28));
+    arc(CX,CY,220,eo((t-1.38)/.32),.9*aL);
+    if(t>=1.62) orbit(t,1.62,220,.36,aL,'jou',1);
+  }
+  // ---------- Scene B: no discipline (2.96 - 5.9) ----------
+  if(t>=2.96&&t<5.95){
+    const aW=1-cl((t-4.22)/.2);
+    // wandering, broken path that never reaches the tick
+    const p=eio((t-3.0)/.9);
+    g.save(); g.setLineDash([10,14]); stroke(.55*aW,3); g.beginPath();
+    const N=60; for(let i=0;i<=N*p;i++){const u=i/N; const x=lerp(L,R,u)*.98; const y=CY+Math.sin(u*9)*38*u+u*u*90; i?g.lineTo(x,y):g.moveTo(x,y);} g.stroke(); g.restore();
+    line(R,CY-60,R,CY+60,eio((t-3.3)/.25),.35*aW);
+    if(t<4.35){const q=eio((t-3.35)/.85)*.62; const x=lerp(L,R,q)*.98, y=CY+Math.sin(q*9)*38*q+q*q*90; dot(x,y,13,cl((t-2.96)/.2)*(1-cl((t-4.22)/.12)),.7);}
+    // bigger loop, years
+    const aL=Math.min(cl((t-4.22)/.15),1-cl((t-5.55)/.35));
+    arc(CX,CY,300,eo((t-4.22)/.32),.9*aL);
+    // ghost rings: identical years stacking
+    for(let k=1;k<=3;k++) arc(CX,CY,300+k*26,eo((t-4.5-k*.25)/.3),.10*aL);
+    if(t>=4.48) orbit(t,4.48,300,.4,aL,'ane',1);
+  }
+  // ---------- Scene C: listening + 5 minutes of reflection (5.95 - 8.5) ----------
+  if(t>=5.95&&t<8.6){
+    const a=Math.min(cl((t-5.95)/.2),1-cl((t-8.4)/.2));
+    // hearing ripples
+    for(let k=0;k<3;k++){const s=cl((t-6.0-k*.22)/.7); if(s>0&&s<1) arc(CX,CY,30+s*170,1,.5*(1-s),0,2);}
+    // timer ring + countdown
+    const p=eio((t-6.75)/1.55);
+    arc(CX,CY,240,1,.12*a,-Math.PI/2,3);
+    arc(CX,CY,240,p,.95*a);
+    const ang=-Math.PI/2+TAU*p; if(t>=6.75) dot(CX+240*Math.cos(ang),CY+240*Math.sin(ang),11,a,.9);
+    dot(CX,CY,t<6.72?13:0,a); // listener dot before timer starts
+    if(t>=6.72){const secs=Math.round(300*(1-p)); label(CX,CY,'',`${String(Math.floor(secs/60)).padStart(2,'0')}:${String(secs%60).padStart(2,'0')}`,a*cl((t-6.72)/.15));}
+  }
+  // ---------- Scene D/E: silence -> "e li reyèl." (8.4 - end) ----------
+  if(t>=8.4){
+    const a=cl((t-8.45)/.3);
+    const br=1+.25*Math.sin((t-8.4)*3.2);
+    const flash=t>=9.4?eo((t-9.4)/.35):0;
+    dot(CX,CY,13+flash*3,a,br*(1+flash*.8));
+    if(t>=9.4){ // dotted halo + underline, like the reference's "position" marker
+      g.save(); g.setLineDash([3,7]); arc(CX,CY,34,eo((t-9.4)/.4),.7,-Math.PI/2,2); g.restore();
+      line(CX-110,CY+70,CX+110,CY+70,eio((t-9.5)/.4),.8,3);
+    }
+  }
+  caption(t);
+  // end fade
+  const fe=cl((t-(END-.35))/.35); if(fe>0){g.fillStyle=`rgba(0,0,0,${fe})`;g.fillRect(0,0,W,H);}
+}
+window.render=render; window.END=END;
+</script></body></html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GAYA · Options</title>
+<!-- gaya:styles -->
+<!-- make_standalone.py swaps the line above for the full design-system CSS -->
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+  /* Canvas that holds the options. Not part of the designs themselves. */
+  body { margin: 0; background: var(--neutral-100); font-family: var(--font-body); color: var(--text-primary); }
+  .round { padding: 40px; display: flex; flex-direction: column; gap: 16px; }
+  .round h2 { margin: 0; font: 700 14px/1 var(--font-accent); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--neutral-600); }
+  .options { display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
+  .option { display: flex; flex-direction: column; gap: 12px; }
+  .tag { display: flex; align-items: center; gap: 10px; font: 600 13px/1 var(--font-body); color: var(--neutral-700); }
+  .tag b { background: var(--neutral-900); color: #fff; border-radius: var(--radius-full); padding: 5px 10px; font-size: 12px; letter-spacing: 0.04em; }
+  /* The artboard: set the real format size (1080×1350 LinkedIn, 1920×1080 slide, 1600×840 cover…) */
+  .artboard { width: 540px; height: 675px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+</style>
+</head>
+<body>
+<section class="round">
+  <h2>Round 1</h2>
+  <div class="options">
+
+    <div class="option">
+      <div class="tag"><b>1A</b> Paper · house style</div>
+      <div class="artboard" style="background:var(--surface-paper);padding:48px;box-sizing:border-box;display:flex;flex-direction:column;gap:20px">
+        <img src="gaya:logo/gaya-lockup-color.svg" alt="GAYA" style="height:32px;width:auto;align-self:flex-start">
+        <div style="font:700 12px/1 var(--font-accent);letter-spacing:var(--tracking-widest);color:var(--orange-500)">AI COPILOT FOR INSURANCE</div>
+        <h1 style="margin:0;font:800 52px/1.02 var(--font-display);letter-spacing:-0.035em">Type it once. <span style="color:var(--orange-500)">Super Paste</span> everywhere.</h1>
+      </div>
+    </div>
+
+    <div class="option">
+      <div class="tag"><b>1B</b> Purple stage · bold</div>
+      <div class="artboard gaya-purple-stage gaya-purple-stage--glow" style="padding:48px;box-sizing:border-box;display:flex;flex-direction:column;gap:20px">
+        <img src="gaya:logo/gaya-isotype-color.svg" alt="" style="height:56px;width:auto;align-self:flex-start">
+        <h1 style="margin:0;font:800 52px/1.05 var(--font-display);letter-spacing:-0.03em;color:var(--on-purple)">I refuse to copy &amp; paste.</h1>
+        <div style="margin-top:auto;font:700 22px/1 var(--font-display);color:var(--on-purple-accent)">Gaya.ai</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<script>try { lucide.createIcons(); } catch (e) {}</script>
+</body>
+</html>

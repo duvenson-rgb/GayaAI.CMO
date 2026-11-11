@@ -1,0 +1,28 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Neutral Scale" subtitle="Warm-leaning greys — text, surfaces, borders" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 22px; background: var(--surface-card); }
+  .ramp { display: grid; grid-template-columns: repeat(11, 1fr); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-subtle); }
+  .step { height: 78px; display:flex; align-items:flex-end; justify-content:center; padding-bottom: 6px; font-family: var(--font-mono); font-size: 10px; }
+</style>
+</head>
+<body>
+  <div class="ramp">
+    <div class="step" style="background:var(--neutral-0);color:var(--neutral-600);border-right:1px solid var(--border-subtle)">0</div>
+    <div class="step" style="background:var(--neutral-50);color:var(--neutral-600)">50</div>
+    <div class="step" style="background:var(--neutral-100);color:var(--neutral-700)">100</div>
+    <div class="step" style="background:var(--neutral-200);color:var(--neutral-700)">200</div>
+    <div class="step" style="background:var(--neutral-300);color:var(--neutral-800)">300</div>
+    <div class="step" style="background:var(--neutral-400);color:#fff">400</div>
+    <div class="step" style="background:var(--neutral-500);color:#fff">500</div>
+    <div class="step" style="background:var(--neutral-600);color:#fff">600</div>
+    <div class="step" style="background:var(--neutral-700);color:#fff">700</div>
+    <div class="step" style="background:var(--neutral-800);color:#fff">800</div>
+    <div class="step" style="background:var(--neutral-900);color:#fff">900</div>
+  </div>
+</body>
+</html>

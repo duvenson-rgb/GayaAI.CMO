@@ -1,0 +1,26 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Radii" subtitle="xs → 2xl + full · moderate, architectural" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-card); }
+  .row { display: flex; gap: 18px; align-items: flex-start; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .box { width: 72px; height: 60px; background: var(--orange-100); border: 1.5px solid var(--orange-400); }
+  .tok { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="col"><div class="box" style="border-radius:var(--radius-xs)"></div><div class="tok">xs · 3</div></div>
+    <div class="col"><div class="box" style="border-radius:var(--radius-sm)"></div><div class="tok">sm · 6</div></div>
+    <div class="col"><div class="box" style="border-radius:var(--radius-md)"></div><div class="tok">md · 10</div></div>
+    <div class="col"><div class="box" style="border-radius:var(--radius-lg)"></div><div class="tok">lg · 14</div></div>
+    <div class="col"><div class="box" style="border-radius:var(--radius-xl)"></div><div class="tok">xl · 20</div></div>
+    <div class="col"><div class="box" style="border-radius:var(--radius-2xl)"></div><div class="tok">2xl · 28</div></div>
+    <div class="col"><div class="box" style="border-radius:var(--radius-full)"></div><div class="tok">full</div></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!-- @dsCard group="Brand" viewport="700x300" name="Logo Lockups" subtitle="Official artwork on light, dark, orange & B/W" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+body{margin:0;padding:20px;background:var(--surface-card)}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.t{height:124px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;border:1px solid var(--border-subtle);position:relative}
+.t img{height:56px}
+.l{position:absolute;left:10px;bottom:8px;font-family:var(--font-mono);font-size:10px;color:var(--text-muted)}
+.d .l,.o .l{color:rgba(255,255,255,.75)}
+</style>
+</head>
+<body>
+<div class="g">
+<div class="t" style="background:#fff"><img src="../assets/logo/gaya-lockup-color.svg" alt="GAYA"><span class="l">color · on white (preferred)</span></div>
+<div class="t d" style="background:var(--neutral-900)"><img src="../assets/logo/gaya-lockup-reversed.svg" alt="GAYA"><span class="l">reversed · on dark</span></div>
+<div class="t o" style="background:var(--gaya-orange)"><img src="../assets/logo/gaya-lockup-white.svg" alt="GAYA"><span class="l">white · on orange / photo</span></div>
+<div class="t" style="background:var(--neutral-50)"><img src="../assets/logo/gaya-lockup-black.svg" alt="GAYA"><span class="l">black · B/W print</span></div>
+</div>
+</body>
+</html>

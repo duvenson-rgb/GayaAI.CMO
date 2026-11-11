@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" viewport="700x190" name="Brand Quartet" subtitle="Orange leads; green / yellow / purple support" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 22px; background: var(--surface-card); }
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .sw { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-subtle); }
+  .chip { height: 84px; }
+  .meta { padding: 10px 12px; font-family: var(--font-accent); }
+  .nm { font-weight: 700; font-size: 13px; color: var(--text-primary); letter-spacing: .02em; }
+  .hx { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .lead { font-family: var(--font-accent); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 4px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--gaya-orange)"></div><div class="meta"><div class="nm">Orange</div><div class="hx">#EF5A24</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gaya-green)"></div><div class="meta"><div class="nm">Green</div><div class="hx">#036303</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gaya-yellow)"></div><div class="meta"><div class="nm">Yellow</div><div class="hx">#F9AE3B</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gaya-purple)"></div><div class="meta"><div class="nm">Purple</div><div class="hx">#521184</div></div></div>
+  </div>
+</body>
+</html>

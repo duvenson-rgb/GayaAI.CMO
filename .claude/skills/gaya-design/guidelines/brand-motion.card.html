@@ -1,0 +1,24 @@
+<!-- @dsCard group="Brand" viewport="700x180" name="Motion & Interaction" subtitle="Calm easing · hover darkens · press scales 0.98" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-card); font-family: var(--font-body); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cell { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px 16px; }
+  .k { font-family: var(--font-accent); font-weight: 600; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-brand); }
+  .v { font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary); margin-top: 8px; line-height: 1.7; }
+  .demo { margin-top: 12px; height: 6px; border-radius: 999px; background: var(--orange-500); animation: slide 2.4s var(--ease-standard) infinite; }
+  @keyframes slide { 0%,100% { width: 24%; } 50% { width: 100%; } }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="cell"><div class="k">Easing</div><div class="v">standard<br>0.2,0,0,1<br>emphasized<br>0.3,0,0,1</div><div class="demo"></div></div>
+    <div class="cell"><div class="k">Duration</div><div class="v">fast 120ms<br>base 200ms<br>slow 320ms</div></div>
+    <div class="cell"><div class="k">States</div><div class="v">hover → +1 step<br>press → scale .98<br>focus → 3px ring</div></div>
+  </div>
+</body>
+</html>

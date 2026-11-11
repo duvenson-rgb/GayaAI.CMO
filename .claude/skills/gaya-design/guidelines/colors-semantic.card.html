@@ -1,0 +1,38 @@
+<!-- @dsCard group="Colors" viewport="700x180" name="Semantic Tokens" subtitle="Text, surface & border aliases in context" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 22px; background: var(--surface-page); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .panel { border-radius: var(--radius-md); padding: 14px 16px; }
+  .card { background: var(--surface-card); border: 1px solid var(--border-default); }
+  .inv { background: var(--surface-inverse); }
+  .t1 { color: var(--text-primary); font-weight: 700; font-family: var(--font-display); font-size: 16px; }
+  .t2 { color: var(--text-secondary); font-size: 13px; font-family: var(--font-body); margin-top: 3px; }
+  .t3 { color: var(--text-muted); font-size: 12px; font-family: var(--font-body); margin-top: 2px; }
+  .iv1 { color: var(--text-inverse); font-weight: 700; font-family: var(--font-display); font-size: 16px; }
+  .iv2 { color: var(--neutral-300); font-size: 13px; font-family: var(--font-body); margin-top: 3px; }
+  .brand { color: var(--text-brand); font-weight: 700; }
+  .label { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); margin-bottom: 8px; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="panel card">
+      <div class="label">surface-card / text-*</div>
+      <div class="t1">Quote in 8 minutes</div>
+      <div class="t2">Secondary — supporting copy and metadata.</div>
+      <div class="t3">Muted — captions, timestamps, hints.</div>
+      <div class="t2" style="margin-top:6px">Link styled as <span class="brand">text-brand</span>.</div>
+    </div>
+    <div class="panel inv">
+      <div class="label" style="color:var(--neutral-400)">surface-inverse</div>
+      <div class="iv1">Works on dark</div>
+      <div class="iv2">text-inverse over the inverse surface.</div>
+    </div>
+  </div>
+</body>
+</html>

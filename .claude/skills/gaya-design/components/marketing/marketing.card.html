@@ -1,0 +1,39 @@
+<!-- @dsCard group="Components" viewport="700x380" name="Marketing Blocks" subtitle="AutofillField · Stat / StatRow · StepCard" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:22px;background:var(--neutral-25)}</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { AutofillField, Stat, StatRow, StepCard } = window.GAYADesignSystem_f55ce3;
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <div style={{display:'flex',flexDirection:'column',gap:22}}>
+    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:10}}>
+      <AutofillField label="Vehicle 1 · Year / Make / Model" value="2021 Toyota RAV4 XLE" full />
+      <AutofillField label="Driver 1 · License #" value="S530-4521-8812" />
+      <AutofillField label="BI limits" value="100/300" />
+      <AutofillField label="Prior carrier" value="Select…" filled={false} />
+    </div>
+    <div style={{display:'flex',gap:10}}>
+      <StepCard n={1} title="Super Copy">From dec pages, ACORDs, PDFs or your AMS.</StepCard>
+      <StepCard n={2} title="Super Clipboard">One clean client record.</StepCard>
+      <StepCard n={3} title="Super Paste" active>One click autofills every field.</StepCard>
+    </div>
+    <StatRow>
+      <Stat value="3–10×" label="Faster quoting" tone="purple" size={40} />
+      <Stat value="500+" label="Carriers, raters & AMS" tone="purple" size={40} />
+      <Stat value="SOC 2" label="Type II certified" tone="purple" size={40} />
+    </StatRow>
+  </div>
+);
+</script>
+</body>
+</html>

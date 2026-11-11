@@ -1,0 +1,43 @@
+/* ============================================================
+   GAYA — Effects: elevation, focus, motion
+   ------------------------------------------------------------
+   The logo itself is strictly flat (no drop shadow, no glow — per
+   the manual). Product UI may use SHALLOW, soft elevation to
+   separate surfaces, but stays restrained and never glossy.
+   Warm-tinted shadows keep the orange identity coherent.
+   ============================================================ */
+:root {
+  /* Elevation — soft, warm-neutral, low-contrast */
+  --shadow-xs: 0 1px 2px rgba(26, 23, 20, 0.06);
+  --shadow-sm: 0 1px 3px rgba(26, 23, 20, 0.08), 0 1px 2px rgba(26, 23, 20, 0.05);
+  --shadow-md: 0 4px 12px rgba(26, 23, 20, 0.08), 0 2px 4px rgba(26, 23, 20, 0.05);
+  --shadow-lg: 0 12px 28px rgba(26, 23, 20, 0.12), 0 4px 8px rgba(26, 23, 20, 0.06);
+  --shadow-xl: 0 24px 48px rgba(26, 23, 20, 0.16), 0 8px 16px rgba(26, 23, 20, 0.08);
+
+  /* Brand-tinted glow — for primary CTAs on hover only, used sparingly */
+  --shadow-brand: 0 6px 20px color-mix(in srgb, var(--orange-500) 32%, transparent);
+
+  /* Focus ring */
+  --ring-width: 3px;
+  --ring: 0 0 0 var(--ring-width) var(--focus-ring);
+  --ring-offset: 0 0 0 2px var(--surface-card), 0 0 0 calc(2px + var(--ring-width)) var(--focus-ring);
+
+  /* Motion — calm, confident easing. No bounce. Fades + small slides. */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);   /* @kind other */
+  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1); /* @kind other */
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);       /* @kind other */
+  --duration-fast: 120ms;  /* @kind other */
+  --duration-base: 200ms;  /* @kind other */
+  --duration-slow: 320ms;  /* @kind other */
+
+  /* Hover/press conventions (documented in readme):
+     hover  → shift to next-darker brand step (--brand-hover)
+     press  → next step again (--brand-active) + transform: scale(0.98)
+     focus  → 3px --focus-ring halo */
+  --press-scale: 0.98;  /* @kind other */
+
+  /* Backdrop blur for overlays / sticky chrome */
+  --blur-sm: blur(6px);   /* @kind other */
+  --blur-md: blur(12px);  /* @kind other */
+  --scrim: rgba(20, 18, 16, 0.45);
+}

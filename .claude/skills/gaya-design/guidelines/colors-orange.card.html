@@ -1,0 +1,29 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Orange Scale" subtitle="Primary brand ramp — 500 is the identifier" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 22px; background: var(--surface-card); }
+  .ramp { display: grid; grid-template-columns: repeat(10, 1fr); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-subtle); }
+  .step { height: 78px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 7px; font-family: var(--font-mono); font-size: 11px; }
+  .brand-tick { position: relative; }
+  .brand-tick::after { content: "500"; position: absolute; top: 7px; left: 50%; transform: translateX(-50%); font-family: var(--font-accent); font-weight: 700; font-size: 10px; letter-spacing: .04em; }
+</style>
+</head>
+<body>
+  <div class="ramp">
+    <div class="step" style="background:var(--orange-50);color:var(--orange-700)">50</div>
+    <div class="step" style="background:var(--orange-100);color:var(--orange-700)">100</div>
+    <div class="step" style="background:var(--orange-200);color:var(--orange-800)">200</div>
+    <div class="step" style="background:var(--orange-300);color:var(--orange-900)">300</div>
+    <div class="step" style="background:var(--orange-400);color:#fff">400</div>
+    <div class="step brand-tick" style="background:var(--orange-500);color:#fff">&nbsp;</div>
+    <div class="step" style="background:var(--orange-600);color:#fff">600</div>
+    <div class="step" style="background:var(--orange-700);color:#fff">700</div>
+    <div class="step" style="background:var(--orange-800);color:#fff">800</div>
+    <div class="step" style="background:var(--orange-900);color:#fff">900</div>
+  </div>
+</body>
+</html>

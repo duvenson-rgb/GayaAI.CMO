@@ -1,0 +1,36 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Supporting Accents" subtitle="Green / yellow / purple ramps — use one per surface" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 22px; background: var(--surface-card); display: grid; gap: 10px; }
+  .ramp { display: grid; grid-template-columns: repeat(5, 1fr); border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border-subtle); }
+  .step { height: 30px; display:flex; align-items:center; justify-content:center; font-family: var(--font-mono); font-size: 10px; }
+</style>
+</head>
+<body>
+  <div class="ramp">
+    <div class="step" style="background:var(--green-100);color:var(--green-700)">100</div>
+    <div class="step" style="background:var(--green-300);color:#fff">300</div>
+    <div class="step" style="background:var(--green-500);color:#fff">500</div>
+    <div class="step" style="background:var(--green-700);color:#fff">700</div>
+    <div class="step" style="background:var(--green-900);color:#fff">900</div>
+  </div>
+  <div class="ramp">
+    <div class="step" style="background:var(--yellow-100);color:var(--yellow-800)">100</div>
+    <div class="step" style="background:var(--yellow-300);color:var(--yellow-900)">300</div>
+    <div class="step" style="background:var(--yellow-400);color:var(--yellow-900)">400</div>
+    <div class="step" style="background:var(--yellow-600);color:#fff">600</div>
+    <div class="step" style="background:var(--yellow-800);color:#fff">800</div>
+  </div>
+  <div class="ramp">
+    <div class="step" style="background:var(--purple-100);color:var(--purple-700)">100</div>
+    <div class="step" style="background:var(--purple-300);color:#fff">300</div>
+    <div class="step" style="background:var(--purple-500);color:#fff">500</div>
+    <div class="step" style="background:var(--purple-700);color:#fff">700</div>
+    <div class="step" style="background:var(--purple-900);color:#fff">900</div>
+  </div>
+</body>
+</html>
