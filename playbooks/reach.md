@@ -70,7 +70,7 @@ Rotate through these. No pillar takes more than 2 of an account's posts in a row
 - **The website:** each niche page and feature page is a post waiting to be written.
 - **`references/`:** posts Duvenson likes. Copy the format, structure and hook style. Never copy
   their words.
-- **What worked:** the top posts from the last Monday scorecard, and `learnings.md`.
+- **What worked:** the top posts from the last Monday scorecard, and the AI CMO – Learnings page in Notion.
 
 ## Quality bar
 
@@ -116,7 +116,7 @@ Example:
 3. **After 7 days:** read each post's results with Buffer `list_posts` (includeMetrics true) and
    the matching sessions in Google Analytics, by campaign.
 4. **Learn:** write the top and bottom 3 into the next scorecard. When a test ends, add one rule to
-   `learnings.md`.
+   the AI CMO – Learnings page in Notion.
 
 ## Experiments
 
