@@ -1,3 +1,5 @@
+**Agents:** Design Studio and Video Studio (Reach)
+
 # Visuals playbook
 
 Every post in Buffer gets a visual. This playbook says how to make each kind, where to store it,

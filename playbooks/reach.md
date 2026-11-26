@@ -1,3 +1,5 @@
+**Agent:** Content Writer (Reach)
+
 # Reach playbook
 
 Read this before any Reach task. CLAUDE.md still wins where the two disagree.
@@ -6,7 +8,7 @@ Read this before any Reach task. CLAUDE.md still wins where the two disagree.
 
 Phase 1: get Gaya seen by more insurance professionals, and send them to gaya.ai.
 
-Weekly numbers (from the sources in CLAUDE.md section 2):
+Weekly numbers (from the sources in CLAUDE.md section 6):
 - Organic impressions across the 8 Buffer accounts
 - Website sessions from Organic Social, and from all organic channels
 - Untracked share of website sessions (Direct + Unassigned), which should fall as UTMs spread
@@ -28,7 +30,14 @@ to click through to a specific gaya.ai page.
 | getgaya · X | The company | Short takes, launch news, links to longer posts |
 
 Posts for a person's own profile are drafts in their voice. They always need approval, and you
-never publish as a person (CLAUDE.md section 8).
+never publish as a person (CLAUDE.md section 12).
+
+- Buffer holds 8 channels: Gaya (LinkedIn page), Carl, JP, Dana (LinkedIn), Instagram, Facebook,
+  TikTok and X. Draft for all of them.
+- Sarah reviews posts drafted for team members on Monday, Wednesday and Friday. Put them in review
+  for her; never schedule them yourself.
+- Brenden and Sarah post directly on LinkedIn on their own. Track their posts' performance when you
+  can see it, but don't draft for them unless asked.
 
 ## Starting cadence
 
@@ -62,6 +71,9 @@ Rotate through these. No pillar takes more than 2 of an account's posts in a row
    E&S, small business, middle market, trucking. Link to that niche's page.
 5. **Founder point of view.** Carl and JP on where agencies and AI are going. Opinions, not hype.
 6. **Moments.** Webinars, events, launches and podcast episodes, each with its own landing page.
+7. **The submission hub: capture once, one record, submit everywhere.** Organic content shifts
+   toward this pillar starting now. Ads keep the current message until Carl's new site launches
+   (CLAUDE.md section 4).
 
 ## Where ideas come from
 
@@ -80,7 +92,7 @@ A draft goes to Buffer only if all of these are true:
   "Excited to announce."
 - **One idea per post.**
 - **It sounds like an agency person wrote it.** Producers, AMs, CSRs, carriers, submissions,
-  renewals. Plain language and short sentences (CLAUDE.md section 12).
+  renewals. Plain language and short sentences (CLAUDE.md section 16).
 - **One clear next step**, with a UTM-tagged link to the most relevant gaya.ai page.
 - **Every claim is true today.** No invented numbers. A customer result needs its source call
   linked on the board task.
@@ -129,4 +141,4 @@ Example:
 
 For Meta and LinkedIn ads, draft variations only: 3 hooks × 2 formats, each with UTM links
 (`utm_medium=paid_social`). Never create, edit, launch or change budgets in an ad account. Ad
-results come from the Percuity reads in CLAUDE.md section 2.
+results come from the Percuity reads in CLAUDE.md section 6.
